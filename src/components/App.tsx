@@ -1,3 +1,4 @@
+import RouterExample from './routes'
 import { Dispatch } from 'redux'
 import { h, Component } from 'preact'
 
@@ -10,6 +11,7 @@ export class App extends Component {
         <div>Hello</div>
         <Greet who="Diana" />
         <EnhancedContainer year={1986} />
+        <RouterExample />
       </main>
     )
   }
