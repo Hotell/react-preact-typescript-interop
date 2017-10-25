@@ -9,6 +9,7 @@
     "@types/react": "15.6.5",
     "@types/react-redux": "5.0.10",
     "@types/react-router-dom": "4.0.8",
+    "@types/redux-form": "7.0.6",
     "typescript": "2.5.3"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "react-redux": "5.0.6",
     "react-router-dom": "4.2.2",
     "redux": "3.7.2",
+    "redux-form": "7.1.1",
     "tslib": "1.8.0"
   }
 }
