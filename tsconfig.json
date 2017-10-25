@@ -41,15 +41,16 @@
     "paths": {
       "preact": ["custom-types/preact"],
       // explicitly cast to our installed version of react < 16
-      "react": ["node_modules/@types/react"]
+      "react": ["node_modules/@types/react"],
+      // explicity override lib/ defs with our custom ones
+      "redux-form/lib/*": ["custom-types/redux-form/lib/*"]
+      // "redux-form": ["custom-types/redux-form", "node_modules/@types/redux-form"]
       // NOPE:
       // following is overkill: so we just extend Preact with type defs to match structural shape, Structural typing FTW !!!
       // "react": ["custom-types/preact-compat"]
     }, // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
-    /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */ "typeRoots": [
-      "custom-types",
-      "node_modules/@types"
-    ] /* List of folders to include type definitions from. */,
+    /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+    "typeRoots": ["node_modules/@types", "custom-types"] /* List of folders to include type definitions from. */,
     // "types": [],                           /* Type declaration files to be included in compilation. */
     "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
