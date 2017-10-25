@@ -22,7 +22,7 @@ const FieldLevelValidationForm = (props: Props) => {
       <Field
         name="username"
         type="text"
-        component={'input'}
+        component={renderField}
         label="Username"
         validate={[validators.required, validators.maxLength15, validators.minLength2]}
         warn={validators.alphaNumeric}

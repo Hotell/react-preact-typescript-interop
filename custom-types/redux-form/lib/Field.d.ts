@@ -11,10 +11,7 @@ import {
 } from 'react'
 import { Dispatch } from 'redux'
 
-interface CustomFieldProps {
-  label: string
-  type: string
-}
+import { CustomFieldProps } from '../types'
 
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any
 export type Formatter = (value: any, name: string) => any
