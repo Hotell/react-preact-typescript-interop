@@ -6,7 +6,10 @@
   "author": "Martin Hochel <hochelmartin@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/i18next-browser-languagedetector": "2.0.0",
+    "@types/i18next-xhr-backend": "1.4.0",
     "@types/react": "15.6.5",
+    "@types/react-i18next": "4.6.0",
     "@types/react-redux": "5.0.10",
     "@types/react-router-dom": "4.0.8",
     "@types/redux-form": "7.0.6",
@@ -15,10 +18,14 @@
   "dependencies": {
     "preact": "8.2.5",
     "preact-compat": "3.17.0",
+    "react-i18next": "6.0.6",
     "react-redux": "5.0.6",
     "react-router-dom": "4.2.2",
     "redux": "3.7.2",
     "redux-form": "7.1.1",
-    "tslib": "1.8.0"
+    "tslib": "1.8.0",
+    "i18next": "10.0.3",
+    "i18next-browser-languagedetector": "2.0.0",
+    "i18next-xhr-backend": "1.4.3"
   }
 }
