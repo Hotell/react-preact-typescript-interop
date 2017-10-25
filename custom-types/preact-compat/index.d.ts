@@ -5,7 +5,7 @@ declare module 'preact-compat' {
 import * as Preact from 'preact'
 import * as React from 'react'
 declare module 'preact' {
-  // type Foo = Pick<Preact.VNode, 'nodeName'>
+  type OptionalOriginalVNodeShape = Partial<Pick<Preact.VNode, 'nodeName'>>
   interface VNode extends React.ReactElement<{}> {}
 
   interface Component<P, S> {

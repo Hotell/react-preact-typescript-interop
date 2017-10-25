@@ -1,9 +1,10 @@
-import RouterExample from './routes'
 import { Dispatch } from 'redux'
 import { h, Component } from 'preact'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
+import './typed-children'
+import RouterExample from './routes'
 import { EnhancedContainer, Container } from './Container'
 import { ConfigProvider } from './providers'
 import { createStoreFactory } from '../store'
