@@ -2,6 +2,7 @@ import { h } from 'preact'
 import { BrowserRouter as Router, Route, Link, RouteComponentProps, Switch, Redirect } from 'react-router-dom'
 
 import { Mixed } from '../types'
+import { EnhancedContainer } from './Container'
 
 const Home = () => (
   <div>
@@ -21,7 +22,7 @@ const Topic = ({ match }: RouteComponentProps<{ topicId: number }>) => (
   </div>
 )
 
-const Topics = ({ match }: RouteComponentProps<Mixed>) => (
+const Topics = ({ match }: RouteComponentProps<void>) => (
   <div>
     <h2>Topics</h2>
     <ul>
@@ -61,6 +62,7 @@ const RouterExample = () => (
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
+      <Route path="/connected" component={EnhancedContainer} />
     </div>
   </Router>
 )
@@ -86,6 +88,7 @@ const NoMatchExample = () => (
         </li>
       </ul>
       <Switch>
+        {/* sfdsfds */}
         <Route path="/" exact component={Home} />
         <Redirect from="/old-match" to="/will-match" />
         <Route path="/will-match" component={WillMatch} />
@@ -97,7 +100,7 @@ const NoMatchExample = () => (
 
 const WillMatch = () => <h3>Matched!</h3>
 
-const NoMatch = ({ location }: RouteComponentProps<Mixed>) => (
+const NoMatch = ({ location }: RouteComponentProps<void>) => (
   <div>
     <h3>
       No match for <code>{location.pathname}</code>
