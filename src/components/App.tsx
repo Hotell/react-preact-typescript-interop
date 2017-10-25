@@ -21,6 +21,12 @@ export class App extends Component {
         <Provider store={store}>
           <Router>
             <main>
+              <nav>
+                <h1>React-Preact TS interop</h1>
+                <div>
+                  <i class="fa fa-user" />
+                </div>
+              </nav>
               <div>Hello</div>
               <Greet who="Diana" />
               <EnhancedContainer year={1986} />
