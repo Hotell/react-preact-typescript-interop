@@ -1,25 +1,23 @@
-// declare module 'preact-compat' {
-
-// }
-
 import * as Preact from 'preact'
 import * as React from 'react'
 declare module 'preact' {
-  type OptionalOriginalVNodeShape = Partial<Pick<Preact.VNode, 'nodeName'>>
-  interface VNode<P = {}> /* extends React.ReactElement<any> */ {
-    type: string | ComponentClass<P> | SFC<P>
-    props: P
+  /**
+   * provides SyntheticEvent under preact namespace
+   */
+  interface SyntheticEvent<T> extends React.SyntheticEvent<T> {}
+  // type OptionalOriginalVNodeShape = Partial<Pick<Preact.VNode, 'nodeName'>>
+
+  /**
+   * extends preact.VNode with ReactElement compliant type structure
+   */
+  interface VNode extends React.ReactElement<any> {}
+
+  /**
+   * extends preact.Component to React.Component compliant type structure
+   */
+  interface Component {
+    refs: {
+      [key: string]: ReactInstance
+    }
   }
-
-  interface Component<P, S> {
-    refs: any
-    base?: HTMLElement
-    linkState?: (name: string) => (event: Event) => void
-  }
-
-  // interface EventHandler<E extends React.SyntheticEvent<any>> {
-  //   (event: E): void
-  // }
-
-  interface GenericEventHandler extends EventHandler<Event & React.SyntheticEvent<any>> {}
 }

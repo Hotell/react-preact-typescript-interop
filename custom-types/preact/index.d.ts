@@ -74,9 +74,16 @@ declare namespace preact {
     state: S
     props: Readonly<{ children?: PreactNode }> & Readonly<P>
     context: any
-    base: HTMLElement
+    // @private
+    // base: HTMLElement
 
-    linkState: (name: string) => (event: Event) => void
+    /**
+     * **Note:**
+     * In Preact 7 and prior, `linkState()` was built right into Component.
+     * In 8.0, it was moved to a separate module. You can restore the 7.x behavior by using linkstate as a polyfill
+     * -> see [the linkstate docs](https://github.com/developit/linkstate#usage).
+     */
+    // linkState: (name: string) => (event: Event) => void
 
     setState<K extends keyof S>(state: Pick<S, K>, callback?: () => void): void
     setState<K extends keyof S>(fn: (prevState: S, props: P) => Pick<S, K>, callback?: () => void): void
@@ -370,46 +377,26 @@ declare namespace preact {
     d: string
   }
 
-  // @TODO investigate how to extend Event to be able to consume synthetic events type
-  interface SyntheticEvent<T> {
-    bubbles: boolean
-    currentTarget: EventTarget & T
-    cancelable: boolean
-    defaultPrevented: boolean
-    eventPhase: number
-    isTrusted: boolean
-    nativeEvent: Event
-    preventDefault(): void
-    isDefaultPrevented(): boolean
-    stopPropagation(): void
-    isPropagationStopped(): boolean
-    persist(): void
-    // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
-    target: EventTarget
-    timeStamp: number
-    type: string
-  }
+  // @override with preact-compat via React.SyntheticEvent interface
+  interface SyntheticEvent<T> {}
 
-  interface EventHandler<E extends SyntheticEvent<any> & Event> {
-    // interface EventHandler<E extends React.SyntheticEvent<any>> {
+  // @TODO investigate how to extend Event to be able to consume synthetic events type
+  interface EventHandler<E extends Event> {
     (event: E): void
   }
-  // interface EventHandler<E extends SyntheticEvent<any>> {
-  //   (event: E): void
-  // }
 
   type ClipboardEventHandler = EventHandler<ClipboardEvent>
   type CompositionEventHandler = EventHandler<CompositionEvent>
-  type DragEventHandler = EventHandler<DragEvent>
-  type FocusEventHandler = EventHandler</* FocusEvent */ SyntheticEvent<any>>
-  type KeyboardEventHandler = EventHandler<KeyboardEvent>
-  type MouseEventHandler = EventHandler<MouseEvent>
-  type TouchEventHandler = EventHandler<TouchEvent>
+  type DragEventHandler = EventHandler<DragEvent | SyntheticEvent<any>>
+  type FocusEventHandler = EventHandler<FocusEvent | SyntheticEvent<any>>
+  type KeyboardEventHandler = EventHandler<KeyboardEvent | SyntheticEvent<any>>
+  type MouseEventHandler = EventHandler<MouseEvent | SyntheticEvent<any>>
+  type TouchEventHandler = EventHandler<TouchEvent | SyntheticEvent<any>>
   type UIEventHandler = EventHandler<UIEvent>
-  type WheelEventHandler = EventHandler<WheelEvent>
-  type AnimationEventHandler = EventHandler<AnimationEvent>
-  type TransitionEventHandler = EventHandler<TransitionEvent>
-  type GenericEventHandler = EventHandler</* Event */ SyntheticEvent<any>>
+  type WheelEventHandler = EventHandler<WheelEvent | SyntheticEvent<any>>
+  type AnimationEventHandler = EventHandler<AnimationEvent | SyntheticEvent<any>>
+  type TransitionEventHandler = EventHandler<TransitionEvent | SyntheticEvent<any>>
+  type GenericEventHandler = EventHandler<Event | SyntheticEvent<any>>
 
   interface DOMAttributes {
     children?: PreactNode
@@ -565,6 +552,7 @@ declare namespace preact {
     href?: string
     hrefLang?: string
     for?: string
+    htmlFor?: string
     httpEquiv?: string
     icon?: string
     id?: string

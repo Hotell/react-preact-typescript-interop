@@ -88,10 +88,10 @@ const NoMatchExample = () => (
         </li>
       </ul>
       <Switch>
-        {/* sfdsfds */}
         <Route path="/" exact component={Home} />
         <Redirect from="/old-match" to="/will-match" />
         <Route path="/will-match" component={WillMatch} />
+        <Route path="/nested" component={RoutesWithSwitch} />
         <Route component={NoMatch} />
       </Switch>
     </div>
@@ -107,5 +107,16 @@ const NoMatch = ({ location }: RouteComponentProps<void>) => (
     </h3>
   </div>
 )
+
+const RoutesWithSwitch = ({ match }: RouteComponentProps<void>) => {
+  return (
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Redirect from="/old-match" to="/will-match" />
+      <Route path="/will-match" component={WillMatch} />
+      <Route component={NoMatch} />
+    </Switch>
+  )
+}
 
 export default RouterExample

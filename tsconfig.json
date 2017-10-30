@@ -6,7 +6,10 @@
     /* Specify module code generation: 'none', commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "module": "esnext",
     /* Specify library files to be included in the compilation:  */
-    "lib": ["dom", "es2015"],
+    "lib": [
+      "dom",
+      "es2015"
+    ],
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
     "jsx": "react",
@@ -42,7 +45,7 @@
     "paths": {
       "preact": ["custom-types/preact"],
       // explicitly cast to our installed version of react < 16
-      "react": ["node_modules/@types/react" /* , "custom-types/react" */],
+      "react": ["node_modules/@types/react"],
       // explicity override lib/ defs with our custom ones
       "redux-form/lib/*": ["custom-types/redux-form/lib/*"]
       // "redux-form": ["custom-types/redux-form", "node_modules/@types/redux-form"]
@@ -53,7 +56,10 @@
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     /* List of folders to include type definitions from. */
-    "typeRoots": ["custom-types", "node_modules/@types"],
+    "typeRoots": [
+      "custom-types",
+      "node_modules/@types"
+    ],
     // "types": [],                           /* Type declaration files to be included in compilation. */
     /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "allowSyntheticDefaultImports": true,
