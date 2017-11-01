@@ -39,7 +39,7 @@
     "preact-render-spy": "1.2.1",
     "prop-types": "15.6.0",
     "ts-jest": "21.1.3",
-    "typescript": "2.5.3"
+    "typescript": "2.6.1"
   },
   "dependencies": {
     "axios": "0.17.0",
