@@ -1,9 +1,9 @@
-// import * as React from 'react'
 declare namespace preact {
   //
   // React Elements
   // ----------------------------------------------------------------------
 
+  type Ref<T> = /* string |  */ (instance: T | null) => any
   interface ComponentProps<C extends Component<any> | FunctionalComponent<any>> {
     children?: VNode[]
     key?: string | number | any
@@ -14,14 +14,14 @@ declare namespace preact {
     __html: string
   }
 
-  interface PreactHTMLAttributes {
+  interface PreactHTMLAttributes<E extends HTMLElement = HTMLElement> {
     dangerouslySetInnerHTML?: DangerouslySetInnerHTML
     key?: string
-    ref?: (el?: Element) => void
+    ref?: Ref<E>
   }
 
   interface VNode<P = {}> {
-    nodeName: string | ComponentConstructor<P> | FunctionalComponent<P>
+    nodeName: string | ComponentClass<P> | FunctionalComponent<P>
     attributes: P
     children: VNode[]
     key: string
@@ -49,21 +49,33 @@ declare namespace preact {
   }
 
   interface FunctionalComponent<P = {}> {
-    (props?: Readonly<{ children?: PreactNode }> & Readonly<P>, context?: any): JSX.Element
+    (props: P & { children?: PreactNode }, context?: any): JSX.Element | null
     displayName?: string
     defaultProps?: Partial<P>
   }
 
+  /**
+   * @deprecated
+   * use ComponentClass instead
+   */
   interface ComponentConstructor<P = {}, S = {}> {
     new (props?: P, context?: any): Component<P, S>
   }
-
-  interface ChildContextProvider<C> {
-    getChildContext(): C
+  interface ComponentClass<P = {}> {
+    new (props?: P, context?: any): Component<P>
+    defaultProps?: Partial<P>
+    displayName?: string
   }
 
-  // Type alias for a component considered generally, whether stateless or stateful.
+  /**
+   * @deprecated
+   * use ComponentType instead
+   *
+   * Type alias for a component considered generally, whether stateless or stateful
+   */
   type AnyComponent<P = {}, S = {}> = FunctionalComponent<P> | typeof Component
+
+  type ComponentType<P = {}> = ComponentClass<P> | FunctionalComponent<P>
 
   abstract class Component<P, S> {
     constructor(props?: P, context?: any)
@@ -90,9 +102,13 @@ declare namespace preact {
 
     forceUpdate(callback?: () => void): void
 
-    abstract render(props?: P /* & ComponentProps<this> */, state?: S, context?: any): JSX.Element | null | false
+    abstract render(props?: P, state?: S, context?: any): JSX.Element | null | false
   }
   interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> {}
+
+  interface ChildContextProvider<C> {
+    getChildContext(): C
+  }
 
   function h<PropsType>(
     node: ComponentConstructor<PropsType, any> | FunctionalComponent<PropsType>,
@@ -104,7 +120,13 @@ declare namespace preact {
     params: HTMLAttributes & SVGAttributes & { [propName: string]: any },
     ...children: (JSX.Element | JSX.Element[] | string)[]
   ): JSX.Element
-  function render(node: JSX.Element, parent: Element | Document | null, mergeWith?: Element): Element
+  // function render(node: JSX.Element, parent: Element | Document | null, mergeWith?: Element): Element
+  // function render<P>(node: VNode<P>, parent: Element | Document | null, mergeWith?: Element): Element
+  function render<P>(
+    node: VNode<P> | ComponentClass<P>,
+    parent: Element | Document | null,
+    mergeWith?: Element
+  ): Element
   function rerender(): void
   function cloneElement(element: JSX.Element, props: any): JSX.Element
 

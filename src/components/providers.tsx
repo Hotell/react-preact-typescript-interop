@@ -16,6 +16,6 @@ export class ConfigProvider extends Component<Props> implements ChildContextProv
   render() {
     const children = Children.only(this.props.children)
 
-    return children as JSX.Element
+    return children
   }
 }

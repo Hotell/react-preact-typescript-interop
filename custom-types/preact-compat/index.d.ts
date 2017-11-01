@@ -1,6 +1,17 @@
 import * as Preact from 'preact'
 import * as React from 'react'
+
+declare module 'react' {
+  interface ReactChildren {
+    only(children: Preact.PreactNode): Preact.VNode<any>
+  }
+}
+
 declare module 'preact' {
+  /**
+   * alias SFC like React has
+   */
+  type SFC<P = {}> = Preact.FunctionalComponent<P>
   /**
    * provides SyntheticEvent under preact namespace
    */

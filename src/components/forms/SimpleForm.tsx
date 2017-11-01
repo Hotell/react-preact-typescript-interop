@@ -1,7 +1,14 @@
 import { h } from 'preact'
-import { Field, reduxForm, InjectedFormProps } from 'redux-form'
+import { compose } from 'redux'
+import { Field, reduxForm, InjectedFormProps, FormErrors } from 'redux-form'
 
 type Props = InjectedFormProps
+
+const enhance = compose(
+  reduxForm({
+    form: 'simple', // a unique identifier for this form
+  })
+)
 
 const SimpleForm = (props: Props) => {
   const { handleSubmit, pristine, reset, submitting } = props
@@ -70,9 +77,5 @@ const SimpleForm = (props: Props) => {
     </form>
   )
 }
-
-const enhance = reduxForm({
-  form: 'simple', // a unique identifier for this form
-})
 
 export default enhance(SimpleForm)
