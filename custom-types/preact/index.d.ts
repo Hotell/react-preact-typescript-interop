@@ -73,7 +73,7 @@ declare namespace preact {
    *
    * Type alias for a component considered generally, whether stateless or stateful
    */
-  type AnyComponent<P = {}, S = {}> = FunctionalComponent<P> | typeof Component
+  type AnyComponent<P = {}, S = {}> = FunctionalComponent<P> | ComponentConstructor<PropsType, StateType>
 
   type ComponentType<P = {}> = ComponentClass<P> | FunctionalComponent<P>
 
@@ -531,6 +531,7 @@ declare namespace preact {
     allowFullScreen?: boolean
     allowTransparency?: boolean
     alt?: string
+    as?: string
     async?: boolean
     autocomplete?: string
     autofocus?: boolean
