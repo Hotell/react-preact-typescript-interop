@@ -1,4 +1,3 @@
-import { Greet } from './Greet'
 import { Dispatch } from 'redux'
 import { h, Component } from 'preact'
 import { Provider } from 'react-redux'
@@ -6,6 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { translate, Trans, InjectedI18nProps } from 'react-i18next'
 
 import './typed-children'
+import SimpleForm from './forms/SimpleForm'
+import { Greet } from './Greet'
 import RouterExample from './routes'
 import { EnhancedContainer, Container } from './Container'
 import { ConfigProvider } from './providers'
@@ -43,6 +44,7 @@ export class App extends Component<Props> {
               <Greet who="Diana" />
               <EnhancedContainer year={1986} />
               <RouterExample />
+              <SimpleForm initialValues={{ firstName: 'Martin', lastName: 'Hochel' }} />
             </main>
           </Router>
         </Provider>

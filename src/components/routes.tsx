@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, SFC, Component } from 'preact'
 import { BrowserRouter as Router, Route, Link, RouteComponentProps, Switch, Redirect } from 'react-router-dom'
 
 import { Mixed } from '../types'
@@ -16,13 +16,18 @@ const About = () => (
   </div>
 )
 
-const Topic = ({ match }: RouteComponentProps<{ topicId: number }>) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
+class Topic extends Component<RouteComponentProps<{ topicId: number }>> {
+  render() {
+    const { match } = this.props
+    return (
+      <div>
+        <h3>{match.params.topicId}</h3>
+      </div>
+    )
+  }
+}
 
-const Topics = ({ match }: RouteComponentProps<void>) => (
+const Topics: SFC<RouteComponentProps<void>> = ({ match }) => (
   <div>
     <h2>Topics</h2>
     <ul>
@@ -88,10 +93,10 @@ const NoMatchExample = () => (
         </li>
       </ul>
       <Switch>
-        {/* sfdsfds */}
         <Route path="/" exact component={Home} />
         <Redirect from="/old-match" to="/will-match" />
         <Route path="/will-match" component={WillMatch} />
+        <Route path="/nested" component={RoutesWithSwitch} />
         <Route component={NoMatch} />
       </Switch>
     </div>
@@ -107,5 +112,45 @@ const NoMatch = ({ location }: RouteComponentProps<void>) => (
     </h3>
   </div>
 )
+
+const RoutesWithSwitch = ({ match }: RouteComponentProps<void>) => {
+  return (
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Redirect from="/old-match" to="/will-match" />
+      <Route path="/will-match" component={WillMatch} />
+      <Route component={NoMatch} />
+    </Switch>
+  )
+}
+
+namespace RouterChildren {
+  const App = () => (
+    <ul>
+      <ListItemLink to="/somewhere" />
+      <ListItemLink to="/somewhere-else" />
+    </ul>
+  )
+
+  const ListItemLink: SFC<{ to: string }> = ({ to, ...rest }) => (
+    <div>
+      <Route
+        path={to}
+        children={({ match }) => (
+          <li class={match ? 'active' : ''}>
+            <Link to={to} {...rest} />
+          </li>
+        )}
+      />
+      <Route path={to}>
+        {({ match }) => (
+          <li class={match ? 'active' : ''}>
+            <Link to={to} {...rest} />
+          </li>
+        )}
+      </Route>
+    </div>
+  )
+}
 
 export default RouterExample
